@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotebookLM: 대화형 시작 가이드</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chosen Palette: Calm Tech Palette -->
+    <!-- Application Structure Plan: A single-page application with top navigation to three thematic sections: 'Introduction', 'Getting Started', and 'Team Collaboration'. This non-linear, dashboard-like structure allows users to quickly access the information most relevant to them, rather than forcing a linear read-through. The 'Getting Started' section uses an interactive tabbed interface to break down the process, and the 'Collaboration' section uses a custom HTML/CSS diagram to visually explain the core knowledge management concept, enhancing usability and comprehension over a plain text document. -->
+    <!-- Visualization & Content Choices: Report Info: Key Features -> Goal: Inform -> Viz: Interactive Cards (HTML/CSS/JS) -> Interaction: Click to expand -> Justification: Prevents information overload, engages user. | Report Info: Getting Started Steps -> Goal: Guide -> Viz: Tabbed Interface (HTML/CSS/JS) -> Interaction: Click to switch steps -> Justification: Organizes a sequential process into manageable, non-scrolling chunks. | Report Info: Team Collaboration Model -> Goal: Explain a concept -> Viz: Custom Diagram (HTML/CSS) -> Interaction: Static visual -> Justification: Visually contrasts the correct vs. incorrect approach for faster understanding than text alone. | Report Info: Team Rules -> Goal: Emphasize -> Viz: Highlighted 'Pledge' section with icons -> Interaction: Static visual -> Justification: Draws user attention to critical, actionable rules. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #334155; /* slate-700 */
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .tab-btn.active {
+            border-color: #3b82f6; /* blue-500 */
+            color: #3b82f6;
+            font-weight: 700;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .diagram-box {
+            border: 2px solid;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            min-height: 12rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .arrow {
+            font-size: 2rem;
+            line-height: 1;
+            color: #64748b; /* slate-500 */
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <header id="header" class="bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <span class="font-bold text-xl text-blue-600">NotebookLM 가이드</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#introduction" class="nav-link text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">소개</a>
+                        <a href="#getting-started" class="nav-link text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">시작하기</a>
+                        <a href="#team-collaboration" class="nav-link text-gray-600 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">팀 협업</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+
+        <section id="hero" class="text-center py-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-slate-800 mb-4">우리 팀의 새로운 AI 지식 도우미</h1>
+            <p class="max-w-3xl mx-auto text-lg text-slate-600">
+                NotebookLM을 효과적으로 사용하여 흩어진 지식을 모으고, 팀의 생산성을 극대화하는 방법을 알아보세요. 이 가이드는 여러분의 성공적인 첫걸음을 돕기 위해 만들어졌습니다.
+            </p>
+        </section>
+
+        <div class="my-12 border-t border-slate-200"></div>
+
+        <section id="introduction" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2 text-center">NotebookLM, 무엇인가요?</h2>
+            <p class="text-center text-slate-600 mb-10 max-w-2xl mx-auto">NotebookLM은 단순한 메모 도구를 넘어, 우리가 제공한 자료에만 집중하여 학습하고 답변하는 개인 전담 연구 조교입니다. 이 섹션에서는 NotebookLM의 핵심 기능과 다른 AI와의 차이점을 알아봅니다.</p>
+            
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-slate-700 mb-4">💡 주요 기능</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start"><span class="mr-3 text-blue-500 text-xl">📂</span><div><strong class="font-semibold">다양한 소스 업로드:</strong> 구글 드라이브, PDF, 웹 URL, 유튜브 영상 등 다양한 자료를 학습시킬 수 있습니다.</div></li>
+                        <li class="flex items-start"><span class="mr-3 text-blue-500 text-xl">💬</span><div><strong class="font-semibold">소스 기반 질의응답:</strong> 업로드된 자료에 기반한 정확한 답변을 제공하여 신뢰도가 높습니다.</div></li>
+                        <li class="flex items-start"><span class="mr-3 text-blue-500 text-xl">🔗</span><div><strong class="font-semibold">출처 인용 (Citation):</strong> 모든 답변의 근거가 되는 원본 출처를 명확히 표시해줍니다.</div></li>
+                        <li class="flex items-start"><span class="mr-3 text-blue-500 text-xl">✍️</span><div><strong class="font-semibold">콘텐츠 생성:</strong> 요약, 브리핑 문서, FAQ 등 다양한 형태의 콘텐츠를 자동으로 만들어줍니다.</div></li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-bold text-slate-700 mb-4">NotebookLM vs 일반 AI 챗봇</h3>
+                    <p class="text-slate-600 mb-4">가장 큰 차이점은 **정보의 범위**입니다.</p>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-md border border-slate-200">
+                            <h4 class="font-bold text-slate-800">NotebookLM</h4>
+                            <p class="text-sm text-slate-600">**오직 우리가 업로드한 자료**에만 기반하여 답변합니다. 특정 자료에 대한 깊이 있는 분석과 높은 보안성을 자랑합니다.</p>
+                        </div>
+                        <div class="p-4 bg-slate-50 rounded-md border border-slate-200">
+                            <h4 class="font-bold text-slate-800">일반 AI 챗봇</h4>
+                            <p class="text-sm text-slate-600">웹상의 방대한 공개 정보를 기반으로 답변합니다. 광범위한 지식을 다루지만, 정보의 최신성이나 정확도는 다를 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="my-16 border-t border-slate-200"></div>
+
+        <section id="getting-started" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2 text-center">시작하기: 실전 가이드</h2>
+            <p class="text-center text-slate-600 mb-10 max-w-2xl mx-auto">이제 직접 NotebookLM에 접속하여 첫 번째 노트북을 만들고 활용하는 방법을 단계별로 알아봅니다. 각 탭을 클릭하여 상세 내용을 확인해 보세요.</p>
+            
+            <div class="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-4 sm:p-6">
+                <div class="border-b border-gray-200">
+                    <nav id="tabs" class="-mb-px flex space-x-2 sm:space-x-4" aria-label="Tabs">
+                        <button data-tab="tab1" class="tab-btn active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">1. 접속하기</button>
+                        <button data-tab="tab2" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">2. 노트북 생성</button>
+                        <button data-tab="tab3" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">3. 소스 추가</button>
+                        <button data-tab="tab4" class="tab-btn whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300">4. 활용하기</button>
+                    </nav>
+                </div>
+                <div id="tab-contents" class="py-6">
+                    <div id="tab1" class="tab-content active">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-2">단계 1: NotebookLM 접속</h3>
+                        <p class="text-slate-600">웹 브라우저에서 <a href="https://notebooklm.google.com" target="_blank" class="text-blue-600 hover:underline font-semibold">notebooklm.google.com</a>으로 접속하세요. 반드시 회사 구글 워크스페이스 계정으로 로그인해야 합니다.</p>
+                    </div>
+                    <div id="tab2" class="tab-content">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-2">단계 2: 첫 번째 노트북 생성</h3>
+                        <p class="text-slate-600 mb-4">화면 왼쪽 상단의 `+ New Notebook` 버튼을 클릭하여 새 노트북을 만듭니다. 노트북은 특정 프로젝트나 주제를 위한 독립된 작업 공간입니다.</p>
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg">
+                            <h4 class="font-bold text-blue-800">💡 우리 팀의 약속: 이름 규칙!</h4>
+                            <p class="text-blue-700">노트북 이름은 `[팀명]_[프로젝트명 또는 주제]` 형식으로 통일해 주세요. 예: `[마케팅]_2분기_시장_보고서`</p>
+                        </div>
+                    </div>
+                    <div id="tab3" class="tab-content">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-2">단계 3: 소스(Sources) 추가</h3>
+                        <p class="text-slate-600 mb-4">`+ Add source` 버튼을 눌러 AI가 학습할 자료를 추가합니다. 다양한 소스를 추가할 수 있습니다.</p>
+                         <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-center">
+                            <div class="p-3 bg-slate-100 rounded-lg"><strong class="block">Google Drive</strong><span class="text-xs text-slate-500">가장 추천</span></div>
+                            <div class="p-3 bg-slate-100 rounded-lg"><strong class="block">Upload</strong><span class="text-xs text-slate-500">PDF, DOCX 등</span></div>
+                            <div class="p-3 bg-slate-100 rounded-lg"><strong class="block">Paste text</strong><span class="text-xs text-slate-500">텍스트 붙여넣기</span></div>
+                            <div class="p-3 bg-slate-100 rounded-lg"><strong class="block">URL</strong><span class="text-xs text-slate-500">웹사이트 주소</span></div>
+                            <div class="p-3 bg-slate-100 rounded-lg"><strong class="block">YouTube URL</strong><span class="text-xs text-slate-500">영상 자막 추출</span></div>
+                        </div>
+                    </div>
+                    <div id="tab4" class="tab-content">
+                        <h3 class="text-lg font-semibold text-slate-800 mb-2">단계 4: 질문하고 답변 받기</h3>
+                        <p class="text-slate-600 mb-4">화면 하단의 입력창에 궁금한 점이나 요청 사항을 입력하세요. AI가 소스를 기반으로 답변과 함께 원본 출처를 제시해 줍니다.</p>
+                        <div class="bg-slate-100 p-4 rounded-lg space-y-2">
+                            <p class="text-sm text-slate-700"><strong>예시 질문:</strong> "이 보고서의 핵심 요약 3가지를 알려줘."</p>
+                            <p class="text-sm text-slate-700"><strong>예시 명령:</strong> "이 자료들을 바탕으로 신입 사원 온보딩을 위한 FAQ를 만들어 줘."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="my-16 border-t border-slate-200"></div>
+
+        <section id="team-collaboration" class="scroll-mt-20">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2 text-center">팀 협업 및 지식 관리</h2>
+            <p class="text-center text-slate-600 mb-10 max-w-2xl mx-auto">NotebookLM의 진정한 힘은 팀 협업에서 나옵니다. 개인의 도구를 넘어 팀의 지식 자산으로 만드는 방법을 알아보고, 우리 팀의 활용 약속을 확인하세요.</p>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg mb-8">
+                <h3 class="text-xl font-bold text-slate-700 mb-4 text-center">💡 핵심 원칙: '지식 네트워크' 구축</h3>
+                <p class="text-center text-slate-600 mb-6">하나의 거대한 노트북이 아닌, 주제별로 잘게 나뉜 여러 노트북을 유기적으로 연결하여 팀의 지식 네트워크를 만들어야 합니다.</p>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="diagram-box border-red-400 bg-red-50 text-red-700">
+                            <h4 class="font-bold mb-2">🚫 잘못된 방법</h4>
+                            <p>모든 정보를 하나의 노트북에 담기</p>
+                        </div>
+                        <p class="text-xs text-center mt-2 text-red-600">정보 혼란 및 보안 문제 발생</p>
+                    </div>
+                    <div>
+                        <div class="diagram-box border-green-500 bg-green-50 text-green-700">
+                            <h4 class="font-bold mb-2">✅ 올바른 방법</h4>
+                            <p>주제별 노트북 생성 후 공유</p>
+                        </div>
+                        <p class="text-xs text-center mt-2 text-green-600">체계적인 지식 관리 및 협업 가능</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h3 class="text-xl font-bold text-slate-700 mb-6 text-center">🤝 우리 팀의 NotebookLM 활용 약속</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-slate-50 p-4 rounded-lg text-center border border-slate-200">
+                        <div class="text-3xl mb-2"> 공유</div>
+                        <h4 class="font-bold text-slate-800 mb-1">업무 노트북은 공유 필수</h4>
+                        <p class="text-sm text-slate-600">개인 소유가 아닌 팀의 공유 자산입니다. 팀원 전체와 `편집자` 권한으로 공유합니다.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg text-center border border-slate-200">
+                        <div class="text-3xl mb-2"> 규칙</div>
+                        <h4 class="font-bold text-slate-800 mb-1">명확한 이름 규칙 준수</h4>
+                        <p class="text-sm text-slate-600">`[팀명]_[주제]` 형식으로 통일하여 검색 효율을 높입니다.</p>
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg text-center border border-slate-200">
+                        <div class="text-3xl mb-2"> 저장</div>
+                        <h4 class="font-bold text-slate-800 mb-1">원본 자료는 구글 드라이브에</h4>
+                        <p class="text-sm text-slate-600">모든 원본 자료는 팀 공유 폴더에 저장 후 NotebookLM으로 가져옵니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-800 text-white mt-16">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-sm">
+            <p>&copy; 2025 우리팀. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const target = tab.getAttribute('data-tab');
+
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === target) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
